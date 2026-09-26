@@ -1,0 +1,19 @@
+id: bad-deploy
+name: Bad deploy / regression after release
+description: A regression correlated with a release in the last hour.
+triggers:
+  alert_names: [DeployRegression, CanaryFailed]
+  subject_patterns: ['after deploy', 'regression', 'canary']
+  body_keywords: [deploy, release, canary, version]
+default_severity: high
+verify:
+  error_rate_below: 0.01
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_deploy_history, get_metrics, get_logs]
+    guidance: Confirm the regression started after the release.
+  - id: rollback
+    kind: remediate
+    action_type: rollback
+    guidance: Roll back to the last known good version. Always needs approval.

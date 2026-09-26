@@ -1,0 +1,9 @@
+node_modules/
+.venv/
+.env
+data/
+__pycache__/
+.pytest_cache/
+*.tmp
+.DS_Store
+.vercel

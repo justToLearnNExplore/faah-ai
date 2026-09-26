@@ -1,0 +1,35 @@
+# Service catalog used for severity triage and the blast-radius rule.
+# tier 0 = payments / auth / checkout (customer money path)
+# tier 1 = customer-facing
+# tier 2 = internal only
+services:
+  checkout-service:
+    tier: 0
+    customer_facing: true
+    stateful: false
+    owner: team-checkout
+  payments-api:
+    tier: 0
+    customer_facing: true
+    stateful: false
+    owner: team-payments
+  payments-db:
+    tier: 0
+    customer_facing: true
+    stateful: true
+    owner: team-payments
+  search-service:
+    tier: 1
+    customer_facing: true
+    stateful: false
+    owner: team-discovery
+  orders-db:
+    tier: 1
+    customer_facing: true
+    stateful: true
+    owner: team-orders
+  batch-worker:
+    tier: 2
+    customer_facing: false
+    stateful: false
+    owner: team-data

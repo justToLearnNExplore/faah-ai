@@ -1,0 +1,23 @@
+id: disk-pressure
+name: Disk pressure
+description: A volume is above its disk usage threshold.
+triggers:
+  alert_names: [DiskPressure, DiskUsageHigh, VolumeAlmostFull]
+  subject_patterns: ['disk', 'volume', 'no space', 'filesystem']
+  body_keywords: [disk usage, disk_used, /var/log, pg_wal, inodes]
+default_severity: low
+verify:
+  disk_used_pct_below: 75
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_metrics, get_logs, describe_service]
+    guidance: Find what is using the space. Never delete database files (pg_wal, data dirs).
+  - id: rotate-logs
+    kind: remediate
+    action_type: rotate_logs
+    guidance: For application log growth on stateless services, rotate and archive logs.
+  - id: expand-volume
+    kind: remediate
+    action_type: expand_volume
+    guidance: For databases, expand the volume (+50%). Volumes can only grow.

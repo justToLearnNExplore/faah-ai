@@ -1,0 +1,6 @@
+{
+  "scenario": "UNMATCHED — no runbook fits; generic triage + agent asks the on-call human",
+  "sender": "cert-monitor <monitor@internal.example.com>",
+  "subject": "TLS certificate for api.example.com expires in 5 days",
+  "body": "The certificate served on api.example.com (issuer: R11) expires on 2026-10-01.\nNo renewal job has run in the last 30 days."
+}

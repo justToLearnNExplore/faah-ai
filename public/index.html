@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faah.ai On-Call</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">FAAH<span>.ai</span></a>
+    <span class="brand-sub">on-call runbook executor · TrueForge + Jev</span>
+    <div class="health" id="health" aria-live="polite"></div>
+    <button class="btn ghost" id="alerts-btn" type="button">Turn on alerts</button>
+  </header>
+
+  <div class="shell">
+    <nav class="rail" aria-label="Incidents">
+      <div class="rail-head">
+        <h2>Incidents</h2>
+        <button class="btn ghost small" id="reset-btn" type="button" title="Reset the toy cluster to its faulty starting state">Reset demo cluster</button>
+      </div>
+      <ol class="incident-list" id="incident-list"></ol>
+    </nav>
+    <main id="main" tabindex="-1"></main>
+  </div>
+
+  <template id="empty-tpl">
+    <section class="empty">
+      <h1>No incident selected</h1>
+      <p>When an alert email arrives, Faah.ai triages it in the background and opens it here as soon as the remediation plan is ready.</p>
+      <p>To try it locally, send a sample alert:</p>
+      <pre>npm run send -- 3</pre>
+    </section>
+  </template>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

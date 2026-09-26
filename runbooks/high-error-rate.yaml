@@ -1,0 +1,27 @@
+id: high-error-rate
+name: Elevated 5xx error rate
+description: A customer-facing service is returning 5xx errors above its SLO.
+triggers:
+  alert_names: [HighErrorRate, 5xxSpike, ErrorBudgetBurn]
+  subject_patterns: ['5xx', 'error rate', 'HTTP 50[0-9]', 'errors? spik']
+  body_keywords: [error_rate, 5xx, status=500, '502', OOMKilled]
+default_severity: high
+verify:
+  error_rate_below: 0.01
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_metrics, get_logs, get_deploy_history, list_pods]
+    guidance: Correlate the spike with recent deploys, OOM kills and upstream errors.
+  - id: scale-out
+    kind: remediate
+    action_type: scale
+    guidance: Add headroom while you diagnose. Roughly double replicas (max 12).
+  - id: raise-memory
+    kind: remediate
+    action_type: set_memory_limit
+    guidance: Only if pods are OOMKilled. Double the memory limit (max 2048Mi).
+  - id: rollback
+    kind: remediate
+    action_type: rollback
+    guidance: If the spike started after a deploy, roll back to the previous version. Always needs approval.

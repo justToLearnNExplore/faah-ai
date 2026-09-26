@@ -1,0 +1,23 @@
+id: pod-crashloop
+name: Pod CrashLoopBackOff
+description: Pods for a service are restarting repeatedly.
+triggers:
+  alert_names: [PodCrashLoopBackOff, KubePodCrashLooping]
+  subject_patterns: ['crashloop', 'crash loop', 'restarting']
+  body_keywords: [CrashLoopBackOff, restarts, exit code]
+default_severity: low
+verify:
+  error_rate_below: 0.01
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [list_pods, get_logs, get_deploy_history]
+    guidance: Find the exit reason (OOM, config, dependency).
+  - id: restart
+    kind: remediate
+    action_type: restart_pods
+    guidance: Rolling restart only if the cause was transient.
+  - id: raise-memory
+    kind: remediate
+    action_type: set_memory_limit
+    guidance: If exit code 137 / OOMKilled, double the memory limit.

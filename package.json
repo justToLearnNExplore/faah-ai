@@ -1,0 +1,37 @@
+{
+  "name": "faah-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Faah.ai — on-call runbook executor on TrueForge + Jev",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "trueforge": "node scripts/run-trueforge.mjs",
+    "mcp": "cd src && ../.venv/bin/python mcp_server.py",
+    "bootstrap": "tsx orchestrator/bootstrap.ts",
+    "orchestrator": "tsx orchestrator/server.ts",
+    "jev-bridge": "tsx orchestrator/jev-bridge.ts",
+    "llm-relay": "tsx orchestrator/llm-relay.ts",
+    "dev": "node scripts/dev.mjs",
+    "send": "tsx scripts/send-test-email.ts",
+    "trick": "PYTHONPATH=src .venv/bin/python scripts/trick_attempt.py",
+    "typecheck": "tsc --noEmit",
+    "test": ".venv/bin/python -m pytest -q tests && tsc --noEmit && tsx scripts/check-jev-bridge.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "^4.0.94",
+    "@hono/node-server": "^2.1.1",
+    "@truefoundry/trueforge": "^0.2.1",
+    "@truefoundry/trueforge-sdk": "^0.2.0",
+    "ai": "^7.0.116",
+    "dotenv": "^18.0.4",
+    "hono": "^4.13.9"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "scenario": "LOW — autonomous resolution (rotate logs on an internal worker)",
+  "sender": "Datadog Alerts <alerts@dtdg.datadoghq.com>",
+  "subject": "[Warning] DiskPressure on batch-worker (82%)",
+  "body": "Alert name: DiskPressure\nPriority: P3\nservice: batch-worker\nenv: production\nregion: us-east-1\nmetric: system.disk.in_use\nvalue: 82%\nthreshold: > 80%\n\nDisk usage on /dev/nvme1n1 crossed 80% for 10 minutes.\nhttps://app.datadoghq.com/monitors/481516"
+}

@@ -1,0 +1,6 @@
+{
+  "scenario": "HIGH — autonomous resolution (scale out under stricter HIGH thresholds)",
+  "sender": "Grafana <alerts@grafana.net>",
+  "subject": "[FIRING:1] HighLatency search-service p99 2.1s",
+  "body": "alertname = HighLatency\nPriority: P2\nservice = search-service\nenv = production\nregion = eu-west-1\nmetric = http_request_duration_seconds_p99\nvalue = 2100ms\nthreshold = > 800ms\n\nAlso seeing 503s and request queue depth above limit. Traffic 5.2k rps vs 2.1k baseline."
+}

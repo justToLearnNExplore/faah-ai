@@ -1,0 +1,20 @@
+id: high-latency
+name: Latency / saturation from traffic surge
+description: p99 latency and 503s rise because the service is out of capacity.
+triggers:
+  alert_names: [HighLatency, LatencySLOBreach, SaturationHigh]
+  subject_patterns: ['latency', 'p99', 'slow', 'saturat']
+  body_keywords: [p99, latency, queue depth, '503', rps]
+default_severity: high
+verify:
+  error_rate_below: 0.01
+  p99_ms_below: 800
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_metrics, get_logs, list_pods]
+    guidance: Check CPU, queue depth and request rate against baseline.
+  - id: scale-out
+    kind: remediate
+    action_type: scale
+    guidance: Scale out stateless replicas to match traffic (2x current, max 12).

@@ -1,0 +1,14 @@
+id: generic-triage
+name: Generic triage (no runbook matched)
+description: Fallback when no runbook matches. Read-only investigation only; a human picks the runbook.
+triggers:
+  alert_names: []
+  subject_patterns: []
+  body_keywords: []
+default_severity: high
+verify: {}
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_metrics, get_logs, describe_service]
+    guidance: Gather evidence only. Do not propose remediation without a human-chosen runbook.

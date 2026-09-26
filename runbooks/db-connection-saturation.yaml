@@ -1,0 +1,23 @@
+id: db-connection-saturation
+name: Database connection saturation
+description: A database is at or near max_connections and clients are failing.
+triggers:
+  alert_names: [DBConnectionsSaturated, PostgresTooManyConnections]
+  subject_patterns: ['connection', 'too many clients', 'pool exhausted']
+  body_keywords: [max_connections, connection slots, pool, idle in transaction]
+default_severity: critical
+verify:
+  connection_util_below: 0.8
+steps:
+  - id: investigate
+    kind: investigate
+    tools: [get_metrics, get_logs, describe_service]
+    guidance: Check active vs idle connections and which client is leaking.
+  - id: kill-idle
+    kind: remediate
+    action_type: kill_idle_connections
+    guidance: Terminate idle-in-transaction connections to free slots.
+  - id: raise-max-connections
+    kind: remediate
+    action_type: set_max_connections
+    guidance: Last resort. Requires a primary restart. Always needs approval.

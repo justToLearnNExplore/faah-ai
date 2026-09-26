@@ -1,0 +1,6 @@
+{
+  "scenario": "HIGH — 2 auto steps + 1 approval (rollback is floor-blocked)",
+  "sender": "PagerDuty <no-reply@pagerduty.com>",
+  "subject": "[HIGH] checkout-service 5xx error rate 18%",
+  "body": "Alert: HighErrorRate\nPriority: P2\nservice: checkout-service\nenv: production\nregion: us-east-1\nmetric: http_5xx_ratio\nvalue: 18%\nthreshold: > 5%\n\nerror_rate breached SLO. 502s from upstream, some pods OOMKilled."
+}
