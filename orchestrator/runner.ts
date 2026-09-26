@@ -217,7 +217,10 @@ async function consume(rt: Runtime, stream: AsyncIterable<Event>) {
 
     switch (ev.type) {
       case "sandbox.created":
-        push(rt, "sandbox", `Daytona sandbox ${ev.sandboxId} created`);
+        // Local sandbox ids look like "v1:local:<path>"; Daytona ids are opaque.
+        push(rt, "sandbox", ev.sandboxId.includes(":local:")
+          ? `TrueForge local sandbox created (${ev.sandboxId.split("/").pop()?.slice(-8)})`
+          : `Daytona sandbox ${ev.sandboxId} created`);
         break;
 
       case "tool.response": {

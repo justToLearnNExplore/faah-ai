@@ -100,7 +100,8 @@ main { padding: 24px 28px 60px; min-width: 0; }
 .panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; margin-top: 18px; }
 .panel > h2 { font: 800 16px var(--display); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
 .panel > h2 .aside { font: 400 13px var(--body); letter-spacing: 0; text-transform: none; color: var(--ink-2); }
-.two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; align-items: start; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.two-col > div { min-width: 0; }
 .two-col > .panel { margin-top: 18px; }
 
 /* ---------- approval cards ---------- */
@@ -142,7 +143,7 @@ main { padding: 24px 28px 60px; min-width: 0; }
 .gauge .thr { position: absolute; top: -4px; bottom: -4px; left: var(--thr); width: 2px; background: var(--ink); }
 .gauge .needle { position: absolute; top: -3px; bottom: -3px; left: var(--risk); width: 4px; margin-left: -2px; border-radius: 2px; background: var(--jev);
   box-shadow: 0 0 0 2px var(--panel); transition: left .6s cubic-bezier(.2,.8,.2,1); }
-.gauge .legend { display: flex; justify-content: space-between; font-family: var(--mono); }
+.gauge .legend { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 10px; font-family: var(--mono); }
 .gauge .legend b { color: var(--jev); }
 
 /* ---------- timeline + audit ---------- */

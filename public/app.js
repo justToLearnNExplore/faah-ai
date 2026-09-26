@@ -140,7 +140,8 @@ function timelineOf(inc) {
 }
 
 function renderEntry(e) {
-  return `<li><time>${esc(hhmmss(e.at))}</time><span class="k-${esc(e.kind)}">${esc(e.text)}</span></li>`;
+  const text = e.kind === "sandbox" ? e.text.replace(/^Daytona sandbox v1:local:.*\/[^/]*([^/]{8}) created$/, "TrueForge local sandbox created ($1)") : e.text;
+  return `<li><time>${esc(hhmmss(e.at))}</time><span class="k-${esc(e.kind)}">${esc(text)}</span></li>`;
 }
 
 function renderPending(inc, pending) {
